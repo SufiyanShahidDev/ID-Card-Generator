@@ -1,13 +1,13 @@
 
-const form = document.getElementById('idForm');
-const idCardContainer = document.getElementById('idCardContainer');
+let form = document.getElementById('idForm');
+let idCardContainer = document.getElementById('idCardContainer');
 
 // Handle Image Upload
 let uploadedImage = "https://via.placeholder.com/150";
 document.getElementById('inputPhoto').addEventListener('change', function (e) {
-    const file = e.target.files[0];
+    let file = e.target.files[0];
     if (file) {
-        const reader = new FileReader();
+        let reader = new FileReader();
         reader.onload = function (event) {
             uploadedImage = event.target.result;
         };
@@ -27,13 +27,13 @@ form.addEventListener('submit', function (event) {
     }
 
     // Collect Data
-    const name = document.getElementById('inputName').value;
-    const course = document.getElementById('inputCourse').value;
-    const cnic = document.getElementById('inputCNIC').value;
-    const batch = document.querySelector('input[name="batch"]:checked').value;
-    const days = document.getElementById('inputDays').value;
-    const time = document.getElementById('inputTime').value;
-    const campus = document.getElementById('inputCampus').value;
+    let name = document.getElementById('inputName').value;
+    let course = document.getElementById('inputCourse').value;
+    let cnic = document.getElementById('inputCNIC').value;
+    let batch = document.querySelector('input[name="batch"]:checked').value;
+    let days = document.getElementById('inputDays').value;
+    let time = document.getElementById('inputTime').value;
+    let campus = document.getElementById('inputCampus').value;
 
     // Map Data to ID Card
     document.getElementById('cardName').innerText = name;
