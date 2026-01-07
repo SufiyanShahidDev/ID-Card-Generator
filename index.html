@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Student ID Generator</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #0d47a1;
+            --accent-color: #ffd700;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+        }
+
+        /* Form Styling */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 8px;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 10px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(26, 35, 126, 0.1);
+        }
+
+        .btn-generate {
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            width: 100%;
+            border: none;
+            transition: transform 0.2s;
+            margin-top: 20px;
+        }
+
+        .btn-generate:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        /* ID Card Styling */
+        #idCardContainer {
+            display: none;
+            margin-top: 50px;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .id-card {
+            width: 350px;
+            height: 520px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border: 1px solid #ddd;
+        }
+
+        .card-header {
+            background: var(--primary-color);
+            height: 120px;
+            text-align: center;
+            padding: 15px;
+            color: white;
+            position: relative;
+        }
+
+        .card-header h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .card-header p {
+            font-size: 0.8rem;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .profile-section {
+            text-align: center;
+            margin-top: -50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 5px solid white;
+            background: #eee;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .student-details {
+            padding: 20px 30px;
+            text-align: center;
+        }
+
+        .student-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            text-transform: capitalize;
+        }
+
+        .student-course {
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .info-item label {
+            display: block;
+            font-size: 0.65rem;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .info-item span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .card-footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: var(--primary-color);
+            padding: 10px;
+            text-align: center;
+            color: white;
+            font-size: 0.7rem;
+        }
+
+        .print-btn {
+            background: #28a745;
+            color: white;
+            margin-top: 20px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            .glass-card {
+                padding: 25px;
+            }
+
+            .id-card {
+                width: 300px;
+                height: 480px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="fw-bold" style="color: var(--primary-color);">Student ID Portal</h1>
+            <p class="text-muted">Enter your details to generate your professional ID card</p>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="glass-card">
+            <form id="idForm" class="needs-validation" novalidate>
+                <div class="row g-4">
+                    <!-- Full Name -->
+                    <div class="col-md-6">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" id="inputName" class="form-control" placeholder="John Doe" required>
+                        <div class="invalid-feedback">Please enter your full name.</div>
+                    </div>
+
+                    <!-- Course -->
+                    <div class="col-md-6">
+                        <label class="form-label">Select Course</label>
+                        <select id="inputCourse" class="form-select" required>
+                            <option value="" selected disabled>Choose Course...</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Cyber Security">Cyber Security</option>
+                            <option value="Graphic Designing">Graphic Designing</option>
+                            <option value="Digital Marketing">Digital Marketing</option>
+                            <option value="App Development">App Development</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a course.</div>
+                    </div>
+
+                    <!-- CNIC -->
+                    <div class="col-md-6">
+                        <label class="form-label">CNIC Number</label>
+                        <input type="text" id="inputCNIC" class="form-control" placeholder="xxxxx-xxxxxxx-x"
+                            pattern="^[0-9+]{5}-[0-9+]{7}-[0-9]{1}$" required>
+                        <div class="invalid-feedback">Format: 12345-1234567-1</div>
+                    </div>
+
+                    <!-- Batch -->
+                    <div class="col-md-6">
+                        <label class="form-label d-block">Batch No.</label>
+                        <div class="mt-2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="batch" id="batch19" value="19"
+                                    required>
+                                <label class="form-check-label" for="batch19">Batch 19</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="batch" id="batch20" value="20"
+                                    required>
+                                <label class="form-check-label" for="batch20">Batch 20</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Class Days -->
+                    <div class="col-md-6">
+                        <label class="form-label">Class Days</label>
+                        <select id="inputDays" class="form-select" required>
+                            <option value="" selected disabled>Select Days...</option>
+                            <option value="Mon-Wed-Fri">Monday-Wednesday-Friday</option>
+                            <option value="Tue-Thu-Sat">Tuesday-Thursday-Saturday</option>
+                        </select>
+                    </div>
+
+                    <!-- Class Timing -->
+                    <div class="col-md-6">
+                        <label class="form-label">Class Timing</label>
+                        <select id="inputTime" class="form-select" required>
+                            <option value="" selected disabled>Select Timing...</option>
+                            <option value="09:00AM - 11:00AM">09:00AM - 11:00AM</option>
+                            <option value="11:00AM - 01:00PM">11:00AM - 01:00PM</option>
+                            <option value="02:00PM - 04:00PM">02:00PM - 04:00PM</option>
+                            <option value="07:00PM - 09:00PM">07:00PM - 09:00PM</option>
+                        </select>
+                    </div>
+
+                    <!-- Campus -->
+                    <div class="col-md-6">
+                        <label class="form-label">Choose Campus</label>
+                        <select id="inputCampus" class="form-select" required>
+                            <option value="" selected disabled>Select Campus...</option>
+                            <option value="Bahadurabad Campus">Bahadurabad Campus</option>
+                            <option value="Gulshan Campus">Gulshan Campus</option>
+                            <option value="Numaish Campus">Numaish Campus</option>
+                            <option value="Clifton Campus">Clifton Campus</option>
+                        </select>
+                    </div>
+
+                    <!-- Profile Photo -->
+                    <div class="col-md-6">
+                        <label class="form-label">Upload Profile Photo</label>
+                        <input type="file" id="inputPhoto" class="form-control" accept="image/*" required>
+                        <div class="invalid-feedback">Please upload a photo.</div>
+                    </div>
+
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-generate">GENERATE ID CARD</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Generated Card Section -->
+        <div id="idCardContainer" class="text-center">
+            <h3 class="mb-4">Your Professional ID Card</h3>
+            <div class="id-card" id="printableCard">
+                <div class="card-header">
+                    <h2>ACADEMY PORTAL</h2>
+                    <p>Official Student Identification</p>
+                </div>
+
+                <div class="profile-section">
+                    <img id="cardImage" src="https://via.placeholder.com/150" class="profile-img" alt="Profile">
+                </div>
+
+                <div class="student-details">
+                    <div id="cardName" class="student-name">Student Name</div>
+                    <div id="cardCourse" class="student-course">Course Name</div>
+
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>CNIC</label>
+                            <span id="cardCNIC">00000-0000000-0</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Batch</label>
+                            <span id="cardBatch">00</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Days</label>
+                            <span id="cardDays">Mon-Wed-Fri</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Timing</label>
+                            <span id="cardTime">00:00 - 00:00</span>
+                        </div>
+                        <div class="info-item" style="grid-column: span 2;">
+                            <label>Campus</label>
+                            <span id="cardCampus">Campus Location</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    This card is property of the Academy. If found, please return.
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <button class="btn btn-generate print-btn w-auto px-5" onclick="window.print()">Print or Save
+                    PDF</button>
+                <button class="btn btn-secondary mt-3 d-block mx-auto" onclick="location.reload()">Reset Form</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('idForm');
+        const idCardContainer = document.getElementById('idCardContainer');
+
+        // Handle Image Upload
+        let uploadedImage = "https://via.placeholder.com/150";
+        document.getElementById('inputPhoto').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    uploadedImage = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Form Submission
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Bootstrap Validation
+            if (!form.checkValidity()) {
+                event.stopPropagation();
+                form.classList.add('was-validated');
+                return;
+            }
+
+            // Collect Data
+            const name = document.getElementById('inputName').value;
+            const course = document.getElementById('inputCourse').value;
+            const cnic = document.getElementById('inputCNIC').value;
+            const batch = document.querySelector('input[name="batch"]:checked').value;
+            const days = document.getElementById('inputDays').value;
+            const time = document.getElementById('inputTime').value;
+            const campus = document.getElementById('inputCampus').value;
+
+            // Map Data to ID Card
+            document.getElementById('cardName').innerText = name;
+            document.getElementById('cardCourse').innerText = course;
+            document.getElementById('cardCNIC').innerText = cnic;
+            document.getElementById('cardBatch').innerText = batch;
+            document.getElementById('cardDays').innerText = days;
+            document.getElementById('cardTime').innerText = time;
+            document.getElementById('cardCampus').innerText = campus;
+            document.getElementById('cardImage').src = uploadedImage;
+
+            // Show ID Card & Hide Form
+            form.parentElement.style.display = 'none';
+            idCardContainer.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+
+</html>
