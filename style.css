@@ -1,0 +1,208 @@
+:root {
+    --primary-color: #1a237e;
+    --secondary-color: #0d47a1;
+    --accent-color: #ffd700;
+    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 900px;
+}
+
+/* Form Styling */
+.glass-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.form-label {
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
+}
+
+.form-control,
+.form-select {
+    border-radius: 10px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(26, 35, 126, 0.1);
+}
+
+.btn-generate {
+    background: var(--primary-color);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    width: 100%;
+    border: none;
+    transition: transform 0.2s;
+    margin-top: 20px;
+}
+
+.btn-generate:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    color: white;
+}
+
+/* ID Card Styling */
+#idCardContainer {
+    display: none;
+    margin-top: 50px;
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.id-card {
+    width: 350px;
+    height: 520px;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ddd;
+}
+
+.card-header {
+    background: var(--primary-color);
+    height: 120px;
+    text-align: center;
+    padding: 15px;
+    color: white;
+    position: relative;
+}
+
+.card-header h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.card-header p {
+    font-size: 0.8rem;
+    margin: 0;
+    opacity: 0.9;
+}
+
+.profile-section {
+    text-align: center;
+    margin-top: -50px;
+    position: relative;
+    z-index: 2;
+}
+
+.profile-img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 5px solid white;
+    background: #eee;
+    object-fit: cover;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.student-details {
+    padding: 20px 30px;
+    text-align: center;
+}
+
+.student-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    text-transform: capitalize;
+}
+
+.student-course {
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--accent-color);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    text-align: left;
+    margin-top: 15px;
+}
+
+.info-item label {
+    display: block;
+    font-size: 0.65rem;
+    color: #999;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.info-item span {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.card-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: var(--primary-color);
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-size: 0.7rem;
+}
+
+.print-btn {
+    background: #28a745;
+    color: white;
+    margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .glass-card {
+        padding: 25px;
+    }
+
+    .id-card {
+        width: 300px;
+        height: 480px;
+    }
+}
