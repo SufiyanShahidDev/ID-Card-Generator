@@ -48,5 +48,5 @@ form.addEventListener('submit', function (event) {
     // Show ID Card & Hide Form
     form.parentElement.style.display = 'none';
     idCardContainer.style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // window.scrollTo({ top: 0, behavior: 'smooth' });
 });
