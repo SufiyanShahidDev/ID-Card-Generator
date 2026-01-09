@@ -3,7 +3,7 @@ let form = document.getElementById('idForm');
 let idCardContainer = document.getElementById('idCardContainer');
 
 // Handle Image Upload
-let uploadedImage = "https://via.placeholder.com/150";
+let uploadedImage = "";
 document.getElementById('inputPhoto').addEventListener('change', function (e) {
     let file = e.target.files[0];
     if (file) {
