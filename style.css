@@ -64,7 +64,7 @@ body {
 }
 
 /* ID Card Styling */
-#idCardContainer {
+/* #idCardContainer {
     display: none;
     margin-top: 50px;
     animation: fadeIn 0.8s ease-out forwards;
@@ -193,7 +193,7 @@ body {
     background: #28a745;
     color: white;
     margin-top: 20px;
-}
+} */
 
 /* Responsive adjustments */
 @media (max-width: 576px) {
