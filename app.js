@@ -1,9 +1,4 @@
 
-
-
-
-
-
  // 1. Create variables to hold our elements
     var studentForm = document.getElementById('idForm');
     var formCard = document.getElementById('formContainer');
