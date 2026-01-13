@@ -1,52 +1,120 @@
 
-let form = document.getElementById('idForm');
-let idCardContainer = document.getElementById('idCardContainer');
+// let form = document.getElementById('idForm');
+// let idCardContainer = document.getElementById('idCardContainer');
 
-// Handle Image Upload
-let uploadedImage = "";
-document.getElementById('inputPhoto').addEventListener('change', function (e) {
-    let file = e.target.files[0];
-    if (file) {
-        let reader = new FileReader();
-        reader.onload = function (event) {
-            uploadedImage = event.target.result;
+// // Handle Image Upload
+// let uploadedImage = "";
+// document.getElementById('inputPhoto').addEventListener('change', function (e) {
+//     let file = e.target.files[0];
+//     if (file) {
+//         let reader = new FileReader();
+//         reader.onload = function (event) {
+//             uploadedImage = event.target.result;
+//         };
+//         reader.readAsDataURL(file);
+//     }
+// });
+
+// // Form Submission
+// form.addEventListener('submit', function (event) {
+//     event.preventDefault();
+
+//     // Bootstrap Validation
+//     if (!form.checkValidity()) {
+//         event.stopPropagation();
+//         form.classList.add('was-validated');
+//         return;
+//     }
+
+//     // Collect Data
+//     let name = document.getElementById('inputName').value;
+//     let course = document.getElementById('inputCourse').value;
+//     let cnic = document.getElementById('inputCNIC').value;
+//     let batch = document.querySelector('input[name="batch"]:checked').value;
+//     let days = document.getElementById('inputDays').value;
+//     let time = document.getElementById('inputTime').value;
+//     let campus = document.getElementById('inputCampus').value;
+
+//     // Map Data to ID Card
+//     document.getElementById('cardName').innerText = name;
+//     document.getElementById('cardCourse').innerText = course;
+//     document.getElementById('cardCNIC').innerText = cnic;
+//     document.getElementById('cardBatch').innerText = batch;
+//     document.getElementById('cardDays').innerText = days;
+//     document.getElementById('cardTime').innerText = time;
+//     document.getElementById('cardCampus').innerText = campus;
+//     document.getElementById('cardImage').src = uploadedImage;
+
+//     // Show ID Card & Hide Form
+//     form.parentElement.style.display = 'none';
+//     idCardContainer.style.display = 'block';
+//     // window.scrollTo({ top: 0, behavior: 'smooth' });
+// });
+
+
+
+
+
+ // 1. Create variables to hold our elements
+    var studentForm = document.getElementById('idForm');
+    var formCard = document.getElementById('formContainer');
+    var displayArea = document.getElementById('idCardContainer');
+    var photoInput = document.getElementById('inputPhoto');
+    var studentPhoto = document.getElementById('cardImage');
+
+    // 2. Handle the Image upload separately
+    // When the user picks a file, we want to show it on the card
+    photoInput.onchange = function() {
+        var file = photoInput.files[0]; // Get the chosen file
+        var reader = new FileReader();  // A tool to read the file
+
+        reader.onload = function(e) {
+            // When reading is done, update the card image
+            studentPhoto.src = e.target.result;
         };
-        reader.readAsDataURL(file);
-    }
-});
 
-// Form Submission
-form.addEventListener('submit', function (event) {
-    event.preventDefault();
+        if (file) {
+            reader.readAsDataURL(file); // Start reading the file
+        }
+    };
 
-    // Bootstrap Validation
-    if (!form.checkValidity()) {
-        event.stopPropagation();
-        form.classList.add('was-validated');
-        return;
-    }
+    // 3. Handle Form Submission
+    studentForm.onsubmit = function(event) {
+        // Prevent the page from refreshing
+        event.preventDefault();
 
-    // Collect Data
-    let name = document.getElementById('inputName').value;
-    let course = document.getElementById('inputCourse').value;
-    let cnic = document.getElementById('inputCNIC').value;
-    let batch = document.querySelector('input[name="batch"]:checked').value;
-    let days = document.getElementById('inputDays').value;
-    let time = document.getElementById('inputTime').value;
-    let campus = document.getElementById('inputCampus').value;
+        // 4. Check for Validation (Standard Bootstrap Check)
+        if (studentForm.checkValidity() === false) {
+            studentForm.classList.add('was-validated');
+            return; // Stop here if form is not filled correctly
+        }
 
-    // Map Data to ID Card
-    document.getElementById('cardName').innerText = name;
-    document.getElementById('cardCourse').innerText = course;
-    document.getElementById('cardCNIC').innerText = cnic;
-    document.getElementById('cardBatch').innerText = batch;
-    document.getElementById('cardDays').innerText = days;
-    document.getElementById('cardTime').innerText = time;
-    document.getElementById('cardCampus').innerText = campus;
-    document.getElementById('cardImage').src = uploadedImage;
+        // 5. Get values from the Form Inputs
+        var nameInput = document.getElementById('inputName').value;
+        var courseInput = document.getElementById('inputCourse').value;
+        var cnicInput = document.getElementById('inputCNIC').value;
+        var daysInput = document.getElementById('inputDays').value;
+        var timeInput = document.getElementById('inputTime').value;
+        var campusInput = document.getElementById('inputCampus').value;
+        
+        // For radio buttons, we find the one that is "checked"
+        var batchInput = "";
+        if (document.getElementById('batch19').checked) {
+            batchInput = "19";
+        } else if (document.getElementById('batch20').checked) {
+            batchInput = "20";
+        }
 
-    // Show ID Card & Hide Form
-    form.parentElement.style.display = 'none';
-    idCardContainer.style.display = 'block';
-    // window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+        // 6. Put the values into the ID Card spans/divs
+        document.getElementById('cardName').innerHTML = nameInput;
+        document.getElementById('cardCourse').innerHTML = courseInput;
+        document.getElementById('cardCNIC').innerHTML = cnicInput;
+        document.getElementById('cardBatch').innerHTML = batchInput;
+        document.getElementById('cardDays').innerHTML = daysInput;
+        document.getElementById('cardTime').innerHTML = timeInput;
+        document.getElementById('cardCampus').innerHTML = campusInput;
+
+        // 7. Hide the Form and Show the ID Card
+        formCard.style.display = "none";
+        displayArea.style.display = "block";
+    };
